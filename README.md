@@ -1,31 +1,48 @@
-## He!
+# Quiz API
 
-### This project is made with Django site 
-### There you can find little but 
-### I can definitely say for beginners it can help
+API викторины на Flask: вопросы по уровням сложности, проверка ответов на сервере и таблица лидеров. Правильные ответы клиенту не уходят, а счёт считает сервер, поэтому очки не накрутить.
 
-#### 1. Clone the GitHub repository:
-    
-    git clone https://github.com/KishikaiseiRimuraBehruz/flask_quiz_api.git
+[![License](https://img.shields.io/github/license/tgKishikaisei/flask_quiz_api)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/tgKishikaisei/flask_quiz_api/ci.yml?branch=main&label=CI)](https://github.com/tgKishikaisei/flask_quiz_api/actions/workflows/ci.yml)
 
-#### 2. Navigate to the project directory:
-    
-    cd Animesaite
+## API
 
-#### 3. (Recommended) Create a virtual environment to manage Python packages for your project:
-    
-    python3 -m venv venv
+| Метод | Путь | Доступ | Что делает |
+|---|---|---|---|
+| POST | `/api/register` | все | `{"name", "phone_number"}` → `user_id` и токен, токен показывается один раз |
+| GET | `/api/get-questions/<level>` | все | до 20 случайных вопросов уровня без правильных ответов |
+| POST | `/api/check-answer/<question_id>/<answer>` | `Authorization: Bearer <token>` | засчитывает ответ, повторный ответ не считается |
+| POST | `/api/done/<level>` | токен | завершает прохождение и считает счёт по сохранённым ответам |
+| GET | `/api/leaders/<level>` | все | топ-5 уровня |
+| POST | `/api/questions` | `X-API-Key` | добавляет вопрос |
 
-#### 4. Activate the virtual environment:
-   ### On Windows:
-    
-    .\venv\Scripts\activate
+## Стек
 
-   ### On macOS and Linux:
-    
-    source venv/bin/activate
+Python 3.12, Flask 3, Flask-SQLAlchemy, SQLite по умолчанию.
 
-#### 5. Install the required Python packages from requirements.txt:
-    
-    pip install -r req.txt
+## Запуск
 
+```bash
+git clone https://github.com/tgKishikaisei/flask_quiz_api.git
+cd flask_quiz_api
+python -m venv venv
+venv\Scripts\activate               # Linux и macOS: source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env                 # ADMIN_API_KEY нужен, чтобы добавлять вопросы
+flask --app main run
+```
+
+## Тесты
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+## Живая версия
+
+Публичного стенда нет, проект запускается локально.
+
+## Лицензия
+
+[MIT](LICENSE) © 2023-2026 Behruz Avezmatov

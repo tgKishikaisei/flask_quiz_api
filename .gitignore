@@ -1,1 +1,41 @@
 /venv
+.venv/
+__pycache__/
+.idea/
+.env
+instance/
+*.db
+.pytest_cache/
+
+# Секреты и локальные данные
+.env.*
+!.env.example
+*.session
+*.session-journal
+config.ini
+client_secret*.json
+service_account*.json
+authorized_user.json
+*.pem
+*.key
+*.sqlite3
+*.log
+aiogram_log.txt
+# Python
+*.py[cod]
+venv/
+venvv/
+.ruff_cache/
+.coverage
+htmlcov/
+# Node
+node_modules/
+dist/
+# IDE и служебные файлы
+.vscode/
+.DS_Store
+Thumbs.db
+AUDIT.md
+CLAUDE.md
+.agents/
+.claude/
